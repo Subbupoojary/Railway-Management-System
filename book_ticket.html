@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Ticket</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 0px;
+            margin: 0;
+           /* background-image: url("/static/5.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgb(0, 0, 0);
+        }
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 150vh;
+        }
+        .booking-form {
+            background-color: #fffffffe;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.992);
+            max-width: 600px;
+            width: 100%;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="date"],
+        .form-group input[type="number"],
+        .form-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+        }
+        .form-group select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            background-image: url('data:image/svg+xml;utf8,<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>');
+            background-repeat: no-repeat;
+            background-position-x: 100%;
+            background-position-y: 50%;
+            background-size: 12px;
+        }
+        .form-group button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .flash-message {
+            color: red;
+            margin-top: 10px;
+            text-align: center;
+        }
+        .seat-details {
+            margin-bottom: 10px;
+        }
+        .seat-details label {
+            font-weight: bold;
+        }
+        .seat-details input[type="text"] {
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <div class="booking-form">
+            <h2>Book Ticket</h2>
+            {% if error %}
+            <p class="error-message">{{ error }}</p>
+            {% endif %}
+            <form action="/book_ticket" method="POST">
+                <div class="form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+                </div>
+                <div class="form-group">
+                    <label for="train_no">Train Number:</label>
+                    <select id="train_no" name="train_no" required>
+                        <option value="" selected disabled>Select Train Number</option>
+                        <!-- Train numbers will be dynamically populated -->
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="source">Source:</label>
+                    <input type="text" id="source" name="source" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+                </div>
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <input type="text" id="destination" name="destination" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+                </div>
+                <div class="form-group">
+                    <label for="class">Class:</label>
+                    <select id="class" name="class" required>
+                        <option value="" selected disabled>Select Class</option>
+                        <option value="First Class">First Class</option>
+                        <option value="Second Class">Second Class</option>
+                        <option value="Third Class">Third Class</option>
+                        <option value="AC">AC</option>
+                        <option value="Sleeper">Sleeper</option>
+                        <option value="General">General</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="date">Date:</label>
+                    <input type="date" id="date" name="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="num_seats">Number of Seats:</label>
+                    <input type="number" id="num_seats" name="num_seats" required min = "1">
+                </div>
+                <div id="seat-details-container"></div>
+                <button type="submit">Book Ticket</button>
+            </form>
+            <!-- Flash message for any errors -->
+            <p class="flash-message" id="error-message"></p>
+            <p class="flash-message" id="success-message"></p>
+        </div>
+    </div>
+    <script>
+        // Fetch train numbers from the server and populate the dropdown
+        fetch('/get_train_numbers')
+            .then(response => response.json())
+            .then(data => {
+                const trainDropdown = document.getElementById('train_no');
+                data.forEach(train_no => {
+                    const option = document.createElement('option');
+                    option.value = train_no;
+                    option.textContent = train_no;
+                    trainDropdown.appendChild(option);
+                });
+            })
+            .catch(error => console.error('Error fetching train numbers:', error));
+
+        document.getElementById('num_seats').addEventListener('input', function() {
+            const numSeats = parseInt(this.value);
+            const seatDetailsContainer = document.getElementById('seat-details-container');
+            seatDetailsContainer.innerHTML = '';
+
+            for (let i = 0; i < numSeats; i++) {
+                const seatDetails = document.createElement('div');
+                seatDetails.className = 'seat-details';
+                seatDetails.innerHTML = `
+                    <label for="name_${i}">Name for Seat ${i + 1}:</label>
+                    <input type="text" id="name_${i}" name="names[]" required>
+                    <label for="age_${i}">Age for Seat ${i + 1}:</label>
+                    <input type="text" id="age_${i}" name="ages[]" required>
+                `;
+                seatDetailsContainer.appendChild(seatDetails);
+            }
+        });
+    </script>
+</body>
+</html>

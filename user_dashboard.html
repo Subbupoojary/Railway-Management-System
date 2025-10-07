@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            margin: 0;
+        /*    background-image: url("/static/6.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgba(6, 6, 6, 0.995);
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            margin-top: 50px;
+        }
+        .dashboard-container {
+            width: 1000px;
+            background-color: #fefafa;
+            padding: 80px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.995);
+        }
+        .dashboard-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .options {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+        }
+        .options button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(253, 253, 253, 0.995);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .options button:hover {
+            background-color: #0056b3;
+        }
+        .logout {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .logout button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #dc3545;
+            color: #fff;
+            border-radius: 3px;
+            box-shadow: 0 0 10px rgba(253, 253, 253, 0.995);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .logout button:hover {
+            background-color: #c82333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-container">
+            <h2>User Dashboard</h2>
+            <div class="options">
+                <button onclick="window.location.href='/check_train'">Check Status of Train</button>
+                <button onclick="window.location.href='/book_ticket'">Book Ticket</button>
+                <button onclick="window.location.href='/cancel_ticket'">Cancel Ticket</button>
+                <button onclick="window.location.href='/show_tickets_history'">Show Ticket</button>
+                <button onclick="window.location.href='/show_trains'">Show Train</button>
+            </div>
+            <div class="logout">
+                <button onclick="window.location.href='/logout'">Logout</button>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

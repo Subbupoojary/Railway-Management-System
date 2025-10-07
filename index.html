@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Management System</title>
+    <!-- Link Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom CSS styles */
+
+        
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            /*background-image: url("/static/4.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgb(9, 9, 9); /* Set text color to semi-transparent white for better contrast */
+        }
+
+        body {
+            padding: 50px;
+        }
+        .jumbotron {
+            background-color: rgba(248, 249, 250, 0); /* Set jumbotron background to semi-transparent white */
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="jumbotron">
+        <h1 class="display-4">Welcome to Railway Management System</h1>
+        <p class="lead">This system provides convenient and efficient railway reservation and management services.</p>
+        <hr class="my-4">
+        <p>Please select an option to proceed:</p>
+        <!-- Add this line where you have the button/link for updating the train -->
+        <a class="btn btn-primary btn-lg" href="{{ url_for('update_train') }}" role="button">Update Train</a>
+        <a class="btn btn-primary btn-lg" href="/cancel_train" role="button">Cancel Train</a>
+        <a class="btn btn-primary btn-lg" href="/admin" role="button">Add Trains</a>
+        <a class="btn btn-danger btn-lg" href="/logout" role="button">Logout</a> <!-- Logout button for admin -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        <!-- Add more options as needed -->
+    </div>
+</div>
+
+</body>
+</html>

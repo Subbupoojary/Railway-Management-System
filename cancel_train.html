@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel Train</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+            /*background-image: url("/static/4.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgba(11, 11, 11, 0.995); 
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #050505;
+        }
+        form {
+            background-color: #ffffff00;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(15, 15, 15, 0.997);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #0b0b0b;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Cancel Train</h2>
+    {% if error %}
+        <p class="error-message">{{ error }}</p>
+    {% endif %}
+    <form action="/cancel_train" method="POST">
+        <label for="train_id">Enter Train ID to Cancel:</label>
+        <input type="text" id="train_no" name="train_no" required pattern="[0-9]+" title="Only numbers are allowed">
+        <button type="submit">Cancel Train</button>
+    </form>
+</body>
+</html>
+

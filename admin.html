@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+          /* background-image: url("/static/4.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgb(11, 11, 11); /* Set text color to white for better contrast */
+        }
+        h1 {
+            text-align: center;
+        }
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.5); /* Add a semi-transparent black background */
+            padding: 20px;
+            border-radius: 10px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"],
+        input[type="number"],
+        input[type="time"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #fefcfc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4CAF50;
+            color: rgb(6, 6, 6);
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        /* Description at the bottom */
+        .description {
+            text-align: center;
+            margin-top: 20px;
+            color: rgb(7, 7, 7); /* Set text color to white for better contrast */
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel</h1>
+    <form action="/admin" method="POST">
+        <h2>Add Train Details</h2>
+        <label for="train_name">Train Name:</label>
+        <input type="text" id="train_name" name="train_name" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        
+        <label for="train_no">Train Number:</label>
+        <input type="number" id="train_no" name="train_no" required min="1" pattern="[0-9]+" title="Only numbers are allowed">
+        
+        <label for="source">Source:</label>
+        <input type="text" id="source" name="source" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        
+        <label for="destination">Destination:</label>
+        <input type="text" id="destination" name="destination" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        
+        <label for="distance">Distance:</label>
+        <input type="number" id="distance" name="distance" step="0.1" required min="0.1" pattern="[0-9]+" title="Only numbers are allowed">
+        
+        <label for="arrival_time">Arrival Time:</label>
+        <input type="time" id="arrival_time" name="arrival_time" required>
+        
+        <label for="departure_time">Departure Time:</label>
+        <input type="time" id="departure_time" name="departure_time" required>
+        
+        <label for="payment">Payment:</label>
+        <input type="number" id="payment" name="payment" required min="0.01" pattern="[0-9]+" title="Only numbers are allowed">
+
+        <input type="submit" value="Add Train">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    </form>
+    <p class="description">This is the admin panel for managing train details.</p>
+</body>
+</html>

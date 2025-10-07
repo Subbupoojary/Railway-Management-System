@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Train Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+           /* background-image: url("/static/5.jpg");*/
+            background-size: cover;
+            background-position: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            color: rgba(0, 0, 0, 0.995); 
+            
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #040404;
+            box-shadow: 0 2px 4px rgb(251, 251, 251);
+        }
+        .details-container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgb(0, 0, 0);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .details-item {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="details-container">
+        <h2>Train Details</h2>
+        <div class="details-item">Train Name: {{ train_details[0] }}</div>
+        <div class="details-item">Train Number: {{ train_details[1] }}</div>
+        <div class="details-item">Source: {{ train_details[2] }}</div>
+        <div class="details-item">Destination: {{ train_details[3] }}</div>
+        <div class="details-item">Distance: {{ train_details[4] }} km</div>
+        <div class="details-item">Arrival Time: {{ train_details[5] }}</div>
+        <div class="details-item">Departure Time: {{ train_details[6] }}</div>
+    </div>
+</body>
+</html>

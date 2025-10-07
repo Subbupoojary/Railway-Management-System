@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Check Train Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 120px;
+            margin: 0;
+            /*background-image: url("/static/5.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgba(0, 0, 0, 0.995);
+        }
+        h2 {
+            margin-bottom: 50px;
+            color: #000000;
+        }
+        form {
+            background-color: #ffffff00;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(19, 9, 9, 0.992);
+            max-width: 450px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 80%;
+            padding: 20px;
+            border: 1px solid #000000;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(18, 18, 18, 0.992);
+            margin-bottom: 20px;
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(249, 248, 248, 0.992);
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+            box-shadow: 0 2px 4px rgba(249, 248, 248, 0.992);
+        }
+        .error-message {
+            color: red;
+            margin-top: 10px;
+        }
+        .details {
+            margin-top: 20px;
+        }
+        .details-item {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Check Train Details</h2>
+    <form action="/check_train" method="POST">
+        <label for="train_no">Enter Train Number:</label>
+        <input type="number" id="train_no" name="train_no" required min = "1">
+        <button type="submit">Check Train Details</button>
+    </form>
+    
+    <!-- Error message for Train Not Found -->
+    {% if error %}
+    <p class="error-message">{{ error }}</p>
+    {% endif %}
+
+    <!-- Display train details if found -->
+    {% if train_details %}
+    <div class="details">
+        <div class="details-item">Train Name: {{ train_details[0] }}</div>
+        <div class="details-item">Train Number: {{ train_details[1] }}</div>
+        <div class="details-item">Source: {{ train_details[2] }}</div>
+        <div class="details-item">Destination: {{ train_details[3] }}</div>
+        <div class="details-item">Distance: {{ train_details[4] }} km</div>
+        <div class="details-item">Arrival Time: {{ train_details[5] }}</div>
+        <div class="details-item">Departure Time: {{ train_details[6] }}</div>
+    </div>
+    {% endif %}
+</body>
+</html>

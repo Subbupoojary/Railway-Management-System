@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Train Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+            margin: 0;
+           /* background-image: url("/static/4.jpg");*/
+            background-size: cover;
+            background-position: center;
+            color: rgba(10, 10, 10, 0.995); 
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #0b0b0b;
+        }
+        form {
+            background-color: #ffffff03;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.923);
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #0f0f0f;
+        }
+        input[type="text"], input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #160b0b;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            
+        }
+        button[type="submit"] {
+            background-color: #007bff;
+            color: #fffffffd;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h2>Update Train Details</h2>
+    <form action="/update_train" method="POST">
+        <label for="train_no">Train ID:</label>
+        <input type="number" id="train_no" name="train_no" required min="1" pattern="[0-9]+" title="Only numbers are allowed">
+        <label for="train_name">New Train Name:</label>
+        <input type="text" id="train_name" name="train_name" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        <label for="source">New Source:</label>
+        <input type="text" id="source" name="source" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        <label for="destination">New Destination:</label>
+        <input type="text" id="destination" name="destination" required pattern="[A-Za-z ]+" title="Only alphabets and spaces are allowed">
+        <label for="distance">New Distance (in km):</label>
+        <input type="number" id="distance" name="distance" required min="1" pattern="[0-9]+" title="Only numbers are allowed">
+        <label for="arrival_time">New Arrival Time:</label>
+        <input type="time" id="arrival_time" name="arrival_time" required>
+        <label for="departure_time">New Departure Time:</label>
+        <input type="time" id="departure_time" name="departure_time" required>
+        <label for="total_seats">New Total Seats:</label>
+        <input type="number" id="total_seats" name="total_seats" required min="1" pattern="[0-9]+" title="Only numbers are allowed">
+        <label for="payment_amount">New Payment Amount:</label>
+        <input type="number" id="payment_amount" name="payment_amount" step="0.01" required min="0.01" pattern="[0-9]+" title="Only numbers are allowed">
+        <button type="submit">Update Train</button>
+    </form>
+</body>
+</html>
